@@ -1,5 +1,25 @@
 const connect = require('./connect');
 
+const getAll = async () => {
+    const conn = await connect();
+
+    const query = 'SELECT * FROM books';
+
+    const [result] = await conn.query(query);
+    return result;
+
+}
+
+const getById = async (id) => {
+    const conn = await connect();
+
+    const query = 'SELECT * FROM books WHERE id = ?';
+
+    const [result] = await conn.query(query, id);
+    return result;
+
+}
+
 const save = async (book) => {
     try {
         const conn = await connect();
@@ -22,7 +42,19 @@ const save = async (book) => {
     }
 }
 
+const remove = async (id) => {
+    const conn = await connect();
+
+    const query = 'DELETE FROM books WHERE id = ?';
+
+    const [ result ] = await conn.query(query, id);
+    return result;
+}
+
 
 module.exports = {
-    save
+    getAll,
+    getById,
+    save,
+    remove,
 }

@@ -2,8 +2,8 @@ const mysql = require('mysql2/promise');
 
 const connect = async () => {
     // return the connection if it was already created
-    // if(global.connection && global.connection.state !== 'disconnected') 
-    //     return global.connection
+    if(global.connection && global.connection.state !== 'disconnected') 
+        return global.connection
 
     // create the connection
     const user = 'root';

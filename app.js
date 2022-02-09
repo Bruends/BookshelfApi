@@ -4,6 +4,7 @@ const booksRouter = require('./src/routes/booksRoutes');
 
 const app = express();
 app.use(cors());
+app.use(express.json())
 app.use('/books', booksRouter);
 
 app.listen(3000, () => {
