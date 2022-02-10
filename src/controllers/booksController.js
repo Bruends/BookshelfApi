@@ -2,7 +2,7 @@ const booksModel = require('../models/booksModel');
 const fs = require('fs');
 
 const deleteImgFromBookId = async (id) => {   
-    // searching book
+    // searching book by id
     const book = await booksModel.getById(id);
 
     // book not found
@@ -23,7 +23,7 @@ const deleteImgFromBookId = async (id) => {
 const getAll = async (request, response) => {
     try {
         const books = await booksModel.getAll();
-        return response.status(200).json({ books });
+        return response.status(200).json( books );
     } catch (error) {
         console.log(error);
         return response.status(500);
@@ -50,15 +50,21 @@ const save = (request, response) => {
         category 
     } = request.body;
     
-    // and uploaded img path
-    const { path }  = request.file;
+    // and the img path if a img has been uploaded
+    let imgPath = null;
+    if (request.file) {
+        const { path }  = request.file;  
+        imgPath = path; 
+        deleteImgFromBookId(id);
+    }   
+
 
     // saving book
     const book = {
         title, 
         description,
         author,
-        imgPath: path,
+        imgPath,
         category
     }
 
@@ -77,10 +83,10 @@ const update = async (request, response) => {
             title, 
             description, 
             author, 
+            imgPath,
             category 
-        } = request.body;
-        
-        let imgPath = null;
+        } = request.body;       
+       
 
         // if a new image has been uploaded
         // remove the old one
@@ -89,7 +95,6 @@ const update = async (request, response) => {
             imgPath = path; 
             deleteImgFromBookId(id)
         }   
-
 
             
         // updating book

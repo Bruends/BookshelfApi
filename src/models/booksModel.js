@@ -30,7 +30,7 @@ const save = async (book) => {
             book.title,
             book.description,
             book.author? book.author : 'unknown',
-            book.imgPath? book.imgPath : 'https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=898&q=80',
+            book.imgPath? book.imgPath : null,
             book.category? book.category : 'uncategorized'
         ]
 
