@@ -8,6 +8,10 @@ const deleteImgFromBookId = async (id) => {
     // book not found
     if(!book[0])
         return false;
+
+    // if the book doesn't have a img
+    if(!book.imgPath)
+        return true;
         
     // removing book img
     fs.unlink("./"+ book[0].imgPath, (error) => {
@@ -32,9 +36,9 @@ const getAll = async (request, response) => {
 
 const getById = async (request, response) =>  {
     try {
-        const { id } = request.body
+        const { id } = request.params;
         const book = await booksModel.getById(id);
-        return response.status(200).json({ book });
+        return response.status(200).json(book[0]);
     } catch (error) {
         console.log(error);
         return response.status(500);
@@ -43,7 +47,7 @@ const getById = async (request, response) =>  {
 
 const save = (request, response) => {
     // getting the request values
-    const { 
+    let { 
         title, 
         description, 
         author, 
@@ -53,7 +57,7 @@ const save = (request, response) => {
     // and the img path if a img has been uploaded
     let imgPath = null;
     if (request.file) {
-        const { path }  = request.file;  
+        let { path }  = request.file;  
         imgPath = path; 
         deleteImgFromBookId(id);
     }   
@@ -78,7 +82,7 @@ const save = (request, response) => {
 const update = async (request, response) => {
     try {
         // getting the request values
-        const { 
+        let { 
             id,
             title, 
             description, 
@@ -91,7 +95,7 @@ const update = async (request, response) => {
         // if a new image has been uploaded
         // remove the old one
         if (request.file) {
-            const { path }  = request.file;  
+            let { path }  = request.file;  
             imgPath = path; 
             deleteImgFromBookId(id)
         }   

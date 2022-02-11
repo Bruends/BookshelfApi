@@ -8,7 +8,7 @@ booksRouter.get('/', (request, response) => {
     booksController.getAll(request, response);
 });
 
-booksRouter.get('/find', (request, response) => {
+booksRouter.get('/find/:id', (request, response) => {
     booksController.getById(request, response);
 });
 
