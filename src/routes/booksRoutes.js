@@ -1,7 +1,7 @@
 const booksRouter = require('express').Router();
 const booksController = require('../controllers/booksController');
 const { multerUpload } =  require('../../config');
-const { response } = require('express');
+
 
 
 booksRouter.get('/', (request, response) => {
@@ -21,7 +21,7 @@ booksRouter.put('/', multerUpload.single('img'), (request, response) => {
     booksController.update(request, response)
 })
 
-booksRouter.delete('/', (request, response) => {
+booksRouter.delete('/:id', (request, response) => {
     booksController.remove(request, response);
 });
 

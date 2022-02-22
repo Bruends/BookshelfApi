@@ -58,8 +58,7 @@ const save = (request, response) => {
     let imgPath = null;
     if (request.file) {
         let { path }  = request.file;  
-        imgPath = path; 
-        deleteImgFromBookId(id);
+        imgPath = path;         
     }   
 
 
@@ -124,7 +123,7 @@ const update = async (request, response) => {
 }
 
 const remove = async (request, response) => {
-    const { id } = request.body;
+    const { id } = request.params;
     console.log(id)
 
     try {
