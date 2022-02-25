@@ -6,14 +6,15 @@ const connect = async () => {
         return global.connection
 
     // create the connection
-    const user = 'root';
-    const port = '3306';
-    const dbName = 'bookshelf';
-    const connectionString = `mysql://root:${user}@localhost:${port}/${dbName}`;
-    const connection = await mysql.createConnection(connectionString);
+    const { DB_HOST, DB_USER, DB_NAME, DB_PASSWORD } = process.env;       
+    const connection = await mysql.createConnection({
+        host: DB_HOST,
+        user: DB_USER,
+        database: DB_NAME,
+        password: DB_PASSWORD
+    });
 
     console.log('connection open');
-    
     // set it to a global variable
     global.connection = connection;
     return connection;
