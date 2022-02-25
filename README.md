@@ -24,7 +24,7 @@ install the dependencies:
 npm install
 ```
 
-Rename the`.env.EXAMPLE` file to `.env` and add your mysql configs
+Rename the `.env.EXAMPLE` file to `.env` and add your mysql configs
 
 ## Run
 
