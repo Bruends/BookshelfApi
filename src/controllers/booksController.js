@@ -50,8 +50,7 @@ const save = (request, response) => {
     let { 
         title, 
         description, 
-        author, 
-        category 
+        author,          
     } = request.body;
     
     // and the img path if a img has been uploaded
@@ -67,8 +66,7 @@ const save = (request, response) => {
         title, 
         description,
         author,
-        imgPath,
-        category
+        imgPath,        
     }
 
     booksModel.save(book);
@@ -86,8 +84,7 @@ const update = async (request, response) => {
             title, 
             description, 
             author, 
-            imgPath,
-            category 
+            imgPath,            
         } = request.body;       
        
 
@@ -96,7 +93,7 @@ const update = async (request, response) => {
         if (request.file) {
             let { path }  = request.file;  
             imgPath = path; 
-            deleteImgFromBookId(id)
+            deleteImgFromBookId(id);
         }   
 
             
@@ -106,8 +103,7 @@ const update = async (request, response) => {
             title, 
             description,
             author,
-            imgPath,
-            category
+            imgPath,            
         }
 
         booksModel.update(book);
@@ -116,26 +112,26 @@ const update = async (request, response) => {
 
         return response.status(200).json({});
     } catch(error) {
-        console.log(error)
-        return response.status(500)
+        console.log(error);
+        return response.status(500);
     }
 
 }
 
 const remove = async (request, response) => {
     const { id } = request.params;
-    console.log(id)
+    console.log(id);
 
     try {
         // deleting book and image file
         if (deleteImgFromBookId(id))
-            booksModel.remove(id)
+            booksModel.remove(id);
         
         response.status(200).json({});
 
     } catch(error) {
-        console.log(error)
-        return response.status(500)
+        console.log(error);
+        return response.status(500);
     }
 }
 

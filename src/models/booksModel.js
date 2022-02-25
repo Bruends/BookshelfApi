@@ -1,23 +1,33 @@
 const connect = require('./connect');
 
 const getAll = async () => {
-    const conn = await connect();
+    try {
+        const conn = await connect();
 
-    const query = 'SELECT * FROM books';
+        const query = 'SELECT id, title, description, author, imgPath FROM books';
 
-    const [result] = await conn.query(query);
-    return result;
-
+        const [result] = await conn.query(query);
+        return result;
+    
+    } catch (error) {
+        console.log(error);
+        throw "Error on getting book";
+    }
 }
 
 const getById = async (id) => {
-    const conn = await connect();
+    try {
+        const conn = await connect();
 
-    const query = 'SELECT * FROM books WHERE id = ?';
+        const query = 'SELECT id, title, description, author, imgPath FROM books WHERE id = ?';
 
-    const [result] = await conn.query(query, id);
-    return result;
-
+        const [result] = await conn.query(query, id);
+        return result;
+    
+    }   catch (error) {
+        console.log(error);
+        throw "Error on getting book";
+    }
 }
 
 const save = async (book) => {
@@ -25,19 +35,18 @@ const save = async (book) => {
         const conn = await connect();
     
         // preparing query
-        const query  = 'INSERT INTO books(title, description, author, imgPath, category) VALUES (?,?,?,?,?);';
+        const query  = 'INSERT INTO books(title, description, author, imgPath) VALUES (?,?,?,?);';
         const values = [
             book.title,
             book.description,
             book.author? book.author : 'unknown',
-            book.imgPath? book.imgPath : null,
-            book.category? book.category : 'uncategorized'
+            book.imgPath? book.imgPath : null,            
         ]
 
         return await conn.query(query, values);
     
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        console.log(error);
         throw "Error on saving book";
     }
 }
@@ -47,31 +56,36 @@ const update = async (book) => {
         const conn = await connect();
     
         // preparing query
-        const query  = 'UPDATE books set title = ?, description = ?, author = ?, imgPath = ? , category = ? WHERE id = ?';
+        const query  = 'UPDATE books set title = ?, description = ?, author = ?, imgPath = ?  WHERE id = ?';
         const values = [
             book.title,
             book.description,
             book.author? book.author : null,
-            book.imgPath? book.imgPath : null,
-            book.category? book.category : null,
+            book.imgPath? book.imgPath : null,            
             book.id,
         ]
 
         return await conn.query(query, values);
     
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        console.log(error);
         throw "Error on saving book";
     }
 }
 
 const remove = async (id) => {
-    const conn = await connect();
+    try {
+        const conn = await connect();
+    
+        const query = 'DELETE FROM books WHERE id = ?';
+    
+        const [ result ] = await conn.query(query, id);
+        return result;
 
-    const query = 'DELETE FROM books WHERE id = ?';
-
-    const [ result ] = await conn.query(query, id);
-    return result;
+    }  catch (error) {
+        console.log(error);
+        throw "Error on deleting book";
+    }
 }
 
 

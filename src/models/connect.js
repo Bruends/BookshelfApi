@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 const connect = async () => {
     // return the connection if it was already created
     if(global.connection && global.connection.state !== 'disconnected') 
-        return global.connection
+        return global.connection;
 
     // create the connection
     const { DB_HOST, DB_USER, DB_NAME, DB_PASSWORD } = process.env;       
@@ -20,4 +20,4 @@ const connect = async () => {
     return connection;
 }
 
-module.exports = connect
+module.exports = connect;
