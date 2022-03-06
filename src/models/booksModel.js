@@ -39,7 +39,7 @@ const save = async (book) => {
         const values = [
             book.title,
             book.description,
-            book.author? book.author : 'unknown',
+            book.author,
             book.imgPath? book.imgPath : null,            
         ]
 
@@ -60,7 +60,7 @@ const update = async (book) => {
         const values = [
             book.title,
             book.description,
-            book.author? book.author : null,
+            book.author,
             book.imgPath? book.imgPath : null,            
             book.id,
         ]
