@@ -15,7 +15,7 @@ backend for the bookshelf app
 
 clone the Repo: 
 ```bash
-git clone https://github.com/BrunoMendes41/BookshelfApi.git
+git clone https://github.com/Bruends/BookshelfApi.git
 ```
 
 install the dependencies:
